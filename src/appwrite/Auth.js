@@ -63,5 +63,5 @@ async getUser(){
 }
 }
 
-const authService = new AuthService
+const authService = new AuthService()
 export default authService
