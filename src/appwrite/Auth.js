@@ -46,7 +46,12 @@ async login({email,password}){
 }
 
 async logout(){
-    await this.account.deleteSessions()
+    try {
+        await this.account.deleteSessions()
+        
+    } catch (error) {
+        console.log("Unable to delete sessions" + error)
+    }
 }
 
 async getUser(){
