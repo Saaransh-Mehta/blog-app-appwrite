@@ -1,5 +1,5 @@
 import config from "../conf/conf";
-import { Client,ID,Databases,Storage,Query } from "appwrite";
+import { Client,ID,Databases,Storage,Query, ImageFormat } from "appwrite";
 
 export class Services{
 client = new Client();
@@ -78,7 +78,36 @@ async allPosts(query = [Query.equal("status","active")]){
     }
    
 }
+async uploadFile(file){
+    try {
+        const image = await this.buckets.createFile(config.Bucket,ID.unique(),file)
+        return image
+    } catch (error) {
+        console.log("this error occured during uploading file")
+    }
+    
+}
 
+async deleteFile(fileId){
+    try {
+        return await this.buckets.deleteFile(config.Bucket,fileId)
+    } catch (error) {
+        console.log("Error occured during deleting file" + error)
+    return false
+    }
+}
+
+getfile(fileId){
+    try {
+        return  this.buckets.getFilePreview(
+            config.Bucket,
+            fileId,
+            ImageFormat.Jpg
+        )
+    } catch (error) {
+        console.log("Error occured during gettting file" + error)
+    }
+}
 
 }
 
