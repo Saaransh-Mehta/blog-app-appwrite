@@ -6,5 +6,4 @@ const config = {
     Bucket : String(import.meta.env.VITE_BUCKET_ID)
 }
 
-
 export default config
