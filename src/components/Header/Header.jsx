@@ -8,13 +8,13 @@ import Container from '../container/Container'
 
 const Header = () => {
     const [active,setActive] = useState(false)
-    const selector = useSelector((state)=> state.auth.status)
+    const selector = useSelector((state)=> {return state.auth.status})
     const navigate = useNavigate()
     const navItems = [
         {
             name:"Home",
             slug:"/",
-            active:true
+            status:true
         },{
             name:"Login",
             slug:"/login",
@@ -27,7 +27,8 @@ const Header = () => {
         },{
             name:"All Post",
             slug:"/all-post",
-            status:selector
+            status:selector,
+            
 
         },
         {
@@ -48,8 +49,8 @@ return(
                     </Link>
                 </div>
                 <ul className='flex ml-auto'>
-                    {navItems.map((key,item)=>
-                    value.active ? (
+                    {navItems.map((item,key)=>
+                    item.status ? (
                             <>
                             <li key={key}>
                                 <button className='inline-block px-6 py-2 duration-200 hover:bg-blue-300 rounded-full' onClick={()=>{navigate(item.slug)}}>{item.name}</button>

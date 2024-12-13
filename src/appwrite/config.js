@@ -1,5 +1,5 @@
-import config from "../conf/conf";
-import { Client,ID,Databases,Storage,Query, ImageFormat } from "appwrite";
+import config from "../conf/conf.js";
+import { Client,ID,Databases, Storage ,Query, ImageFormat } from "appwrite";
 
 export class Services{
 client = new Client();
@@ -10,16 +10,16 @@ constructor(){
     this.client
     .setEndpoint(config.Endpoint)
     .setProject(config.apiKey);
-    this.databases = new Databases(client);
-    this.buckets = new Storage(client);
+    this.databases = new Databases(this.client);
+    this.buckets = new Storage(this.client);   
 
 
 
 }
 async createPost({title,slug,content,featuredImage,status,userId}){
     try{
-        const post = await this.databases.createDocument(config.Database,config.Collection,slug,{title,slug,content,featuredImage,status,userId})
-
+         return await this.databases.createDocument(config.Database,config.Collection,ID.unique(),{title,slug,content,featuredImage,status,userId})
+        
     }
     catch(error){
         console.log("Error occured during creating post" + error)
@@ -55,6 +55,7 @@ async readPost(slug){
         return await this.databases.getDocument(
             config.Database,
             config.Collection,
+
             slug
         )
         
@@ -68,7 +69,7 @@ async allPosts(query = [Query.equal("status","active")]){
         return await this.databases.listDocuments(
             config.Database,
             config.Collection,
-           query
+          
         )
         
 

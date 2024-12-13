@@ -18,7 +18,7 @@ const Login = () => {
 const login = async(data) => {
     setError("")
     try {
-     const session = await  authService.login(data.email , data.password)
+     const session = await  authService.login(data)
      if(session){
         const userData = await authService.getUser()
         if(userData){
@@ -38,7 +38,7 @@ const login = async(data) => {
     <div className='mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10'>
     <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[100px]">
-                        <Logo width="100%" />
+                       
                     </span>
         </div>
         <h2 className="text-center text-2xl font-bold leading-tight">Sign in to your account</h2>
